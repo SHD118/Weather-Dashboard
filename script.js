@@ -59,3 +59,76 @@ function dataInput(input) {
         .then(function (response) {
             return response.json();
         })
+        .then(function (data) {
+            if (data.cod === "404") {
+                alert("bad city")
+                console.log("response.status : " + response.status)
+            }
+            else {
+                console.log("test"  + data)
+                let city = document.querySelector('#inputCity').value
+                    
+        if(localStorage.getItem('savedCities')){
+            savedCities = JSON.parse(localStorage.getItem('savedCities')) 
+       } 
+    
+       let flag = false;
+       for (let i = 0; i < savedCities.length; i++){
+           if (savedCities[i] === city) {
+               alert("This city " + city + " already listed")
+               flag = true;
+               break;
+        
+           }
+           
+       }
+       if (flag === false) {
+           savedCities.push(city)
+           // localStorage.setItem('savedCities', JSON.stringify(savedCities))
+           localStorage.setItem('savedCities', JSON.stringify(savedCities))
+           createItemFromStorage(city)
+       }
+                
+                finalValue = data;
+                // console.log(finalValue)
+                return data;
+               
+            }
+
+
+        })
+        .then(function (data) {
+            let weatherArray = []
+            fiveDay.textContent = "";
+            for (let i = 0; i < data.list.length; i++) {
+                // console.log(data.list[i].main.temp_min)
+               
+
+                var dt = data.list[i].dt_txt
+                var temp = data.list[i].main.temp
+                var humid = data.list[i].main.humidity
+                var icon = data.list[i].weather[0].icon
+                console.log("icon " + icon)
+                let tempString = `http://openweathermap.org/img/wn/${icon}.png`
+                var wind = data.list[i].wind.speed;
+                let creatElemtn = $(`<div class="col-2">
+                <div class="card" style=" background-color: blue">
+                <div class="card-body">
+                    <h5 class="card-title">${dt}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">${temp}</h6>
+                    <p class="card-text"><img src = "${tempString}"/></p>
+                    <p class="card-text">${humid}</p>
+                    <p class="card-text">${wind}</p>
+                </div>
+               </div>
+               </div>`)
+                
+               
+ creatElemtn.appendTo(fiveDay)
+
+            }
+
+        })
+
+}
+
