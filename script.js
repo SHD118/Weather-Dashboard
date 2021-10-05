@@ -37,3 +37,13 @@ function createItemFromStorage(value) {
     buttonPressing(buttonPress);
     
 }
+// Created function when any of the stored city buttons is press it will send the city to the fetch method
+function buttonPressing(buttonPress) {
+    for (let i = 0; i < buttonPress.length; i++){
+        buttonPress[i].addEventListener("click", function (event) {
+            dataInput(event.target.textContent)
+            dataInput2(event.target.textContent)
+        })
+    }
+ 
+}
