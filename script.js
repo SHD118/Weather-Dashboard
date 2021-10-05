@@ -47,3 +47,15 @@ function buttonPressing(buttonPress) {
     }
  
 }
+
+// fetching data to display five day forcast
+function dataInput(input) {
+    const myKey = "8d16f28b545852d623de7ad3baf04f51";
+
+    console.log(input)
+    console.log(myKey)
+    fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + input + "&cnt=5" + "&appid=" + myKey)
+        // fetch("api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=8d16f28b545852d623de7ad3baf04f51")
+        .then(function (response) {
+            return response.json();
+        })
