@@ -9,3 +9,18 @@ var resultList = document.getElementById("resultList")
 var finalValue = [];
 
 let savedCities = localStorage.getItem('savedCities') ? JSON.parse(localStorage.getItem('savedCities')) : []
+
+// displays local storage items on webpage
+for (let i = 0; i < savedCities.length; i++) {
+    createItemFromStorage(savedCities[i])
+}
+
+
+// Added the event listener for when the submit button is pressed
+button.addEventListener("click", function () {
+   
+    var inputGlobal = inputText.value;
+    dataInput(inputGlobal);
+    dataInput2(inputGlobal);
+
+})
