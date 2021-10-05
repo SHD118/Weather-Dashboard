@@ -132,3 +132,46 @@ function dataInput(input) {
 
 }
 
+
+function dataInput2(input) {
+    const myKey = "8d16f28b545852d623de7ad3baf04f51";
+
+    console.log(input)
+    console.log(myKey)
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + input + "&appid=" + myKey)
+      
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log("ytrds")
+            console.log(data)
+
+            return data;
+
+        })
+        
+        .then(function (data) {
+            weatherDetail.textContent = "";
+            // for (let i = 0; i < data.length; i++){
+                var pTagName = document.createElement("h1")
+                var pTagTemp = document.createElement("p")
+                var pTagWind = document.createElement("p")
+                var pTagHumidity = document.createElement("p")
+                var pTagUV = document.createElement("p")
+                pTagName.textContent = data.name;
+                pTagTemp.textContent = data.main.temp;
+                pTagWind.textContent = data.wind.speed;
+                pTagHumidity.textContent = data.main.humidity;
+                pTagUV.textContent = data.uvi
+                // pTagName.append(weatherDetail)
+            weatherDetail.appendChild(pTagName)
+            weatherDetail.appendChild(pTagTemp)
+            weatherDetail.appendChild(pTagWind)
+            weatherDetail.appendChild(pTagHumidity)
+            weatherDetail.appendChild(pTagUV)
+            // }
+            return;
+        })
+
+}
