@@ -12,7 +12,7 @@
 </head>
 
 <body>
-<!-- Jumbotron header -->
+    <!-- Jumbotron header -->
     <div class="jumbotron jumbotron-fluid" id="jumbotron_head">
         <div class="container">
             <h1 class="display-4">Weather Forecast</h1>
@@ -24,10 +24,36 @@
     <!-- search bar -->
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
-          <span class="navbar-brand mb-0 h1">Navbar</span>
+            <span class="navbar-brand mb-0 h1">Find a city</span>
         </div>
-      </nav>
-<!-- end of search bar -->
+    </nav>
+    <!-- end of search bar -->
+
+    <!-- submit button  forform -->
+    <div class="input-group mb-3">
+        <input id="inputCity" type="text" class="form-control" placeholder="Recipient's username"
+            aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Submit</button>
+    </div>
+    <!-- end of submit button -->
+    
+    <!-- result area of five day forcast and current selection -->
+    <div id="resultList"></div>
+    </div>
+    <div class="col-8">
+
+        <div class="row" id="result_area">
+
+            <div class="container-lg" id="weather_detail"></div>
+        </div>
+        <div id="five_day" class="row" style="display: flex; justify-content: space-evenly; margin-top : 10px">
+
+        </div>
+
+    </div>
+     <!-- End of result area of five day forcast and current selection -->
+
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="script.js"></script>
