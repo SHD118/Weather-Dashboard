@@ -24,3 +24,16 @@ button.addEventListener("click", function () {
     dataInput2(inputGlobal);
 
 })
+
+// created function to handle adding data to local storage dynamically
+function createItemFromStorage(value) {
+
+    var btn_city = document.createElement("button")
+    btn_city.classList.add("btn-secondary")
+    btn_city.textContent = value;
+    resultList.appendChild(btn_city)
+    var buttonPress = document.getElementsByClassName("btn-secondary");
+    
+    buttonPressing(buttonPress);
+    
+}
