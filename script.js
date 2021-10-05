@@ -48,6 +48,36 @@ function buttonPressing(buttonPress) {
  
 }
 
+function validateCity(data) {
+    console.log("test"  + data)
+    let city = document.querySelector('#inputCity').value
+        
+if(localStorage.getItem('savedCities')){
+savedCities = JSON.parse(localStorage.getItem('savedCities')) 
+} 
+
+let flag = false;
+for (let i = 0; i < savedCities.length; i++){
+if (savedCities[i] === city) {
+   
+   flag = true;
+   break;
+
+}
+
+}
+if (flag === false) {
+savedCities.push(city)
+localStorage.setItem('savedCities', JSON.stringify(savedCities))
+createItemFromStorage(city)
+}
+
+    finalValue = data;
+    return data;
+   
+}    
+
+
 // fetching data to display five day forcast
 function dataInput(input) {
     const myKey = "8d16f28b545852d623de7ad3baf04f51";
@@ -61,48 +91,18 @@ function dataInput(input) {
         })
         .then(function (data) {
             if (data.cod === "404") {
-                alert("bad city")
+                alert("This City doesn't exist")
                 console.log("response.status : " + response.status)
             }
             else {
-                console.log("test"  + data)
-                let city = document.querySelector('#inputCity').value
-                    
-        if(localStorage.getItem('savedCities')){
-            savedCities = JSON.parse(localStorage.getItem('savedCities')) 
-       } 
-    
-       let flag = false;
-       for (let i = 0; i < savedCities.length; i++){
-           if (savedCities[i] === city) {
-               alert("This city " + city + " already listed")
-               flag = true;
-               break;
-        
-           }
-           
-       }
-       if (flag === false) {
-           savedCities.push(city)
-           // localStorage.setItem('savedCities', JSON.stringify(savedCities))
-           localStorage.setItem('savedCities', JSON.stringify(savedCities))
-           createItemFromStorage(city)
-       }
-                
-                finalValue = data;
-                // console.log(finalValue)
-                return data;
-               
+              return validateCity(data)
             }
-
 
         })
         .then(function (data) {
             let weatherArray = []
             fiveDay.textContent = "";
             for (let i = 0; i < data.list.length; i++) {
-                // console.log(data.list[i].main.temp_min)
-               
 
                 var dt = data.list[i].dt_txt
                 var temp = data.list[i].main.temp
@@ -112,7 +112,7 @@ function dataInput(input) {
                 let tempString = `http://openweathermap.org/img/wn/${icon}.png`
                 var wind = data.list[i].wind.speed;
                 let creatElemtn = $(`<div class="col-2">
-                <div class="card" style=" background-color: blue">
+                <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">${dt}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">${temp}</h6>
