@@ -49,6 +49,19 @@ height: 300px
     margin-left: 1%;
 
 }
+.orangeBox{
+    display: inline-flex;
+    background-color: orange;
+    margin-left: 1%;
+
+}
+
+.purpleBox{
+    display: inline-flex;
+    background-color: purple;
+    margin-left: 1%;
+
+}
 
 
 

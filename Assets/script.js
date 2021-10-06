@@ -46,7 +46,7 @@ function createItemFromStorage(value) {
     var btn_city = document.createElement("button")
     btn_city.classList.add("btn-secondary")
     if (value === "") {
-        
+
         return
     }
     btn_city.textContent = value;
@@ -69,10 +69,10 @@ function buttonPressing(buttonPress) {
 // Validate location is real
 function validateCity(data) {
     let city = document.querySelector('#inputCity').value
-    
+
 
     if (localStorage.getItem('savedCities')) {
-    
+
         savedCities = JSON.parse(localStorage.getItem('savedCities'))
     }
 
@@ -97,22 +97,24 @@ function validateCity(data) {
 
 }
 
-
+function NotACity() {
+   var flag=  alert("This City doesn't exist")
+   
+    return;
+}
 // fetching data to display five day forcast
 function fetchingFiveDay(input) {
     const myKey = "8d16f28b545852d623de7ad3baf04f51";
 
-    // console.log(input)
-    // console.log(myKey)
     fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + input + "&cnt=5" + "&appid=" + myKey)
-        // fetch("api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=8d16f28b545852d623de7ad3baf04f51")
+
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
             if (data.cod === "404") {
-                alert("This City doesn't exist")
-                // console.log("response.status : " + response.status)
+                NotACity()
+
             }
             else {
                 return validateCity(data)
@@ -120,7 +122,7 @@ function fetchingFiveDay(input) {
 
         })
         .then(function (data) {
-            // let weatherArray = []
+
             fiveDay.textContent = "";
             for (let i = 0; i < data.list.length; i++) {
 
@@ -128,7 +130,7 @@ function fetchingFiveDay(input) {
                 var temp = data.list[i].main.temp
                 var humid = data.list[i].main.humidity
                 var icon = data.list[i].weather[0].icon
-                // console.log("icon " + icon)
+
                 let tempString = `http://openweathermap.org/img/wn/${icon}.png`
                 var wind = data.list[i].wind.speed;
                 let creatElemtn = $(`<div class="col-2">
@@ -158,22 +160,18 @@ function fetchingFiveDay(input) {
 function fetchingCurrentLocation(input) {
     const myKey = "8d16f28b545852d623de7ad3baf04f51";
 
-    // console.log(input)
-    // console.log(myKey)
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + input + "&appid=" + myKey + "&units=imperial")
 
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            // console.log("ytrds")
-            // console.log(data)
 
 
             return data;
 
         })
-        
+
 
         .then(function (data) {
             let lat = data.coord.lat;
@@ -182,10 +180,10 @@ function fetchingCurrentLocation(input) {
                 .then(function (response) {
                     return response.json();
                 })
-            
+
                 .then(function (uvData) {
                     weatherDetail.textContent = "";
-                  
+
 
 
                     var pTagName = document.createElement("h1")
@@ -195,49 +193,53 @@ function fetchingCurrentLocation(input) {
                     var pTagUVParent = document.createElement("div")
                     var pTagUVText = document.createElement("p")
                     var pTagUV = document.createElement("p")
-                    // pTagUV.classList.add("greenBox")
+                    var img = document.createElement("img")
+
                     pTagUVParent.classList.add("pTagUVParent")
                     pTagUVText.textContent = "UVI : ";
                     pTagUV.textContent = uvData.current.uvi
-                    if (uvData.current.uvi < .5) {
-                        pTagUV.classList.add("redBox")
+                    if (uvData.current.uvi < 2) {
+                        pTagUV.classList.add("greenBox")
                     }
-                    else if (uvData.current.uvi > .5) {
-                        pTagUV.classList.add("green")
+                    else if (uvData.current.uvi > 2 && uvData.current.uvi <= 5) {
+                        pTagUV.classList.add("yellowBox")
+                    }
+                    else if (uvData.current.uvi > 5 && uvData.current.uvi <= 7)
+                        pTagUV.classList.add("orangeBox")
+                    else if (uvData.current.uvi > 7 && uvData.current.uvi <= 10) {
+                        pTagUV.classList.add("redBox")
+
                     }
                     else {
-                        pTagUV.classList.add("yellow")
-                        
+                        pTagUV.classList.add("purpleBox")
                     }
-                   var icon = data.weather[0].icon
-                    console.log(icon)
-                    console.log(data)
-                    let displayIcon = `http://openweathermap.org/img/wn/${icon}.png`
 
-                    pTagName.textContent = data.name + " " + today + " " + displayIcon;
+                    var icon = data.weather[0].icon
+
+                    let displayIcon = `http://openweathermap.org/img/wn/${icon}.png`
+                    img.src = displayIcon;
+
+
+                    pTagName.textContent = data.name + " " + today
                     
-                    // pTagName.textContent =  data.name + " " + today 
-                    pTagTemp.textContent = "Temp : " + data.main.temp + "°F" 
+                   
+                    pTagTemp.textContent = "Temp : " + data.main.temp + "°F"
                     pTagWind.textContent = "wind : " + data.wind.speed + "MPH";
                     pTagHumidity.textContent = "Humidity : " + data.main.humidity + "%";
                     pTagUVParent.appendChild(pTagUVText)
                     pTagUVParent.appendChild(pTagUV)
-                   
-                    // pTagUV.textContent =  "UVI : " + uvData.current.uvi
-                    
-                    
-                    // console.log("sid")
-                    // console.log(uvData)
+
                     weatherDetail.appendChild(pTagName)
                     weatherDetail.appendChild(pTagTemp)
                     weatherDetail.appendChild(pTagWind)
                     weatherDetail.appendChild(pTagHumidity)
-                     weatherDetail.appendChild(pTagUVParent)
-                    
+                    weatherDetail.appendChild(pTagUVParent)
+                    weatherDetail.appendChild(img)
+
 
                     return;
                 })
-        
+
         })
 
 }
@@ -246,19 +248,4 @@ btnClear.addEventListener("click", function () {
     localStorage.clear()
     location.reload();
 })
-  
-// if (uvData.current.uvi < 2) {
-//     pTagUV.classList.add("greenBox")
-// }
-// else if (uvData.current.uvi >2 && uvData.current.uvi<5) {
-//     pTagUV.classList.add("yellowBox")
-// }
-// else if (uvData.current.uvi > 5 && uvData.current.uvi < 7)
-// pTagUV.classList.add("orangeBox")
-// else if (uvData.current.uvi > 7 && uvData.current.uvi < 10) {
-//     pTagUV.classList.add("redBox")
-    
-// }
-// else {
-//     pTagUV.classList.add("purpleBox")
-// }
+
