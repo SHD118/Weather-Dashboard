@@ -209,11 +209,14 @@ function fetchingCurrentLocation(input) {
                         pTagUV.classList.add("yellow")
                         
                     }
-                    // var icon = data.current.weather[0].icon
-                    // let displayIcon = `http://openweathermap.org/img/wn/${icon}.png`
+                   var icon = data.weather[0].icon
+                    console.log(icon)
+                    console.log(data)
+                    let displayIcon = `http://openweathermap.org/img/wn/${icon}.png`
 
-                    // pTagName.textContent =  data.name + " " + today + " " + displayIcon;
-                    pTagName.textContent =  data.name + " " + today 
+                    pTagName.textContent = data.name + " " + today + " " + displayIcon;
+                    
+                    // pTagName.textContent =  data.name + " " + today 
                     pTagTemp.textContent = "Temp : " + data.main.temp + "°F" 
                     pTagWind.textContent = "wind : " + data.wind.speed + "MPH";
                     pTagHumidity.textContent = "Humidity : " + data.main.humidity + "%";
@@ -224,7 +227,7 @@ function fetchingCurrentLocation(input) {
                     
                     
                     // console.log("sid")
-                    console.log(uvData)
+                    // console.log(uvData)
                     weatherDetail.appendChild(pTagName)
                     weatherDetail.appendChild(pTagTemp)
                     weatherDetail.appendChild(pTagWind)
@@ -242,4 +245,20 @@ function fetchingCurrentLocation(input) {
 btnClear.addEventListener("click", function () {
     localStorage.clear()
     location.reload();
-  })
+})
+  
+// if (uvData.current.uvi < 2) {
+//     pTagUV.classList.add("greenBox")
+// }
+// else if (uvData.current.uvi >2 && uvData.current.uvi<5) {
+//     pTagUV.classList.add("yellowBox")
+// }
+// else if (uvData.current.uvi > 5 && uvData.current.uvi < 7)
+// pTagUV.classList.add("orangeBox")
+// else if (uvData.current.uvi > 7 && uvData.current.uvi < 10) {
+//     pTagUV.classList.add("redBox")
+    
+// }
+// else {
+//     pTagUV.classList.add("purpleBox")
+// }
