@@ -4,6 +4,7 @@ var button = document.getElementById("button-addon2");
 var fiveDay = document.getElementById("five_day")
 var weatherDetail = document.getElementById("weather_detail")
 var resultList = document.getElementById("resultList")
+var btnClear = document.getElementById("clear");
 
 // global assignments
 var finalValue = [];
@@ -11,6 +12,7 @@ var currentDate = new Date();
 let month = currentDate.getMonth();
 let year = currentDate.getFullYear();
 let date = currentDate.getDate();
+
 
 let today = `${month}/${date}/${year}`;
 
@@ -235,3 +237,7 @@ function fetchingCurrentLocation(input) {
 
 }
 
+btnClear.addEventListener("click", function () {
+    localStorage.clear()
+    location.reload();
+  })
