@@ -8,6 +8,8 @@ The purpose of this porject was to create a weather dashboard using openweatherm
 This project helped me increase my knowledge in javascript and working in front-end technologies such as HTML and CSS. At this point I am very confident in my skills in dyanmically creating a webpage purely through javascript. Also, I learned how to fetch and parse data using and displaying the in the HTML. I am very confident in using third party APIs such as (https://openweathermap.org/api).
 
 
+
+
 ## Table of Content
 - [Webpage](#webpage)
 - [Installation](#installation)
@@ -22,7 +24,6 @@ This project helped me increase my knowledge in javascript and working in front-
 
 
 <br/>
-
 ![A user clicks on slots on the color-coded calendar and edits the events.](img/Work_Day_Schedule.gif)
 
 
