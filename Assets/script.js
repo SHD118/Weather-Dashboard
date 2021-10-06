@@ -209,9 +209,11 @@ function fetchingCurrentLocation(input) {
                         pTagUV.classList.add("yellow")
                         
                     }
-                  
+                    // var icon = data.current.weather[0].icon
+                    // let displayIcon = `http://openweathermap.org/img/wn/${icon}.png`
 
-                    pTagName.textContent =  data.name + " " + today;
+                    // pTagName.textContent =  data.name + " " + today + " " + displayIcon;
+                    pTagName.textContent =  data.name + " " + today 
                     pTagTemp.textContent = "Temp : " + data.main.temp + "°F" 
                     pTagWind.textContent = "wind : " + data.wind.speed + "MPH";
                     pTagHumidity.textContent = "Humidity : " + data.main.humidity + "%";
@@ -222,7 +224,7 @@ function fetchingCurrentLocation(input) {
                     
                     
                     // console.log("sid")
-                    // console.log(uvData)
+                    console.log(uvData)
                     weatherDetail.appendChild(pTagName)
                     weatherDetail.appendChild(pTagTemp)
                     weatherDetail.appendChild(pTagWind)
