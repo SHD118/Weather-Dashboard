@@ -13,8 +13,8 @@ let year = currentDate.getFullYear();
 let date = currentDate.getDate();
 
 let today = `${month}/${date}/${year}`;
-console.log(today + " siddy")
-let display1 = document.createTextNode(today)
+
+let dateDisplay = document.createTextNode(today)
 
 
 let savedCities = localStorage.getItem('savedCities') ? JSON.parse(localStorage.getItem('savedCities')) : []
@@ -29,6 +29,10 @@ for (let i = 0; i < savedCities.length; i++) {
 button.addEventListener("click", function () {
 
     var inputGlobal = inputText.value;
+    if (inputGlobal === "") {
+        alert("Please enter a city name")
+        return
+    }
     dataInput(inputGlobal);
     dataInput2(inputGlobal);
 
@@ -39,6 +43,10 @@ function createItemFromStorage(value) {
 
     var btn_city = document.createElement("button")
     btn_city.classList.add("btn-secondary")
+    if (value === "") {
+        
+        return
+    }
     btn_city.textContent = value;
     resultList.appendChild(btn_city)
     var buttonPress = document.getElementsByClassName("btn-secondary");
@@ -58,10 +66,11 @@ function buttonPressing(buttonPress) {
 }
 
 function validateCity(data) {
-    console.log("test" + data)
     let city = document.querySelector('#inputCity').value
+    
 
     if (localStorage.getItem('savedCities')) {
+    
         savedCities = JSON.parse(localStorage.getItem('savedCities'))
     }
 
@@ -109,7 +118,7 @@ function dataInput(input) {
 
         })
         .then(function (data) {
-            let weatherArray = []
+            // let weatherArray = []
             fiveDay.textContent = "";
             for (let i = 0; i < data.list.length; i++) {
 
@@ -122,7 +131,9 @@ function dataInput(input) {
                 var wind = data.list[i].wind.speed;
                 let creatElemtn = $(`<div class="col-2">
                 <div class="card">
-                <div class="card-body">
+                <div class="card-body" style = "background-color: #8BC6EC;
+                background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+                ">
                     <h5 class="card-title">${dt}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">${temp}</h6>
                     <p class="card-text"><img src = "${tempString}"/></p>
@@ -172,22 +183,25 @@ function dataInput2(input) {
             
                 .then(function (uvData) {
                     weatherDetail.textContent = "";
-                   
+                  
+
 
                     var pTagName = document.createElement("h1")
                     var pTagTemp = document.createElement("p")
                     var pTagWind = document.createElement("p")
                     var pTagHumidity = document.createElement("p")
                     var pTagUV = document.createElement("p")
-                    pTagName.textContent =  data.name;
+                    pTagUV.classList.add("greenBox")
+                    pTagName.textContent =  data.name + " " + today;
                     pTagTemp.textContent = "Temp : " + data.main.temp;
                     pTagWind.textContent = "wind : " + data.wind.speed;
                     pTagHumidity.textContent = "Humidity : " + data.main.humidity;
+                   
                     pTagUV.textContent = "UVI : " + uvData.current.uvi
+                    
+                    
                     console.log("sid")
                     console.log(uvData)
-
-                    // pTagName.append(weatherDetail)
                     weatherDetail.appendChild(pTagName)
                     weatherDetail.appendChild(pTagTemp)
                     weatherDetail.appendChild(pTagWind)
