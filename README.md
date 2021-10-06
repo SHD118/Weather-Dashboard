@@ -48,7 +48,7 @@ THEN I am again presented with current and future conditions for that city
 
 
 <br/>
-![A user clicks on slots on the color-coded calendar and edits the events.](Assets/Weather.gif)
+![A user clicks on slots on the color-coded calendar and edits the events.](Assets\Weather.gif)
 
 
 
