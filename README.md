@@ -66,16 +66,17 @@ Cell: 908-883-0191
 ```
 
 ## Credits_and_References
-* https://momentjs.com/docs/
-* https://www.w3schools.com/jquERy/default.asp
-* https://getbootstrap.com/docs/5.1/components/buttons/
-* https://getbootstrap.com/docs/5.1/forms/input-group/
+* https://cssgradient.io/gradient-backgrounds/
+* https://openweathermap.org/api
+* https://fonts.google.com/specimen/Oswald
+* https://fonts.google.com/specimen/Open+Sans+Condensed#standard-styles
+* https://getbootstrap.com/
 
 ## License
 
 This project is free use
 
 ## Links
-* https://shd118.github.io/Work-Scheduler/
-* https://github.com/SHD118/Work-Scheduler
+* https://shd118.github.io/Weather-Dashboard/
+* https://github.com/SHD118/Weather-Dashboard
 
