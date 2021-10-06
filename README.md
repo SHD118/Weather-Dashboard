@@ -48,6 +48,8 @@ THEN I am again presented with current and future conditions for that city
 
 
 <br/>
+
+![](Assets/Capture.PNG)
 ![A user clicks on slots on the color-coded calendar and edits the events.](Assets/Weather.gif)
 
 
