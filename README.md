@@ -24,7 +24,7 @@ This project helped me increase my knowledge in javascript and working in front-
 
 
 <br/>
-![A user clicks on slots on the color-coded calendar and edits the events.](img/Work_Day_Schedule.gif)
+![A user clicks on slots on the color-coded calendar and edits the events.](Assets/Weather.gif)
 
 
 
