@@ -7,6 +7,15 @@ var resultList = document.getElementById("resultList")
 
 // global assignments
 var finalValue = [];
+var currentDate = new Date();
+let month = currentDate.getMonth();
+let year = currentDate.getFullYear();
+let date = currentDate.getDate();
+
+let today = `${month}/${date}/${year}`;
+console.log(today + " siddy")
+let display1 = document.createTextNode(today)
+
 
 let savedCities = localStorage.getItem('savedCities') ? JSON.parse(localStorage.getItem('savedCities')) : []
 
@@ -18,7 +27,7 @@ for (let i = 0; i < savedCities.length; i++) {
 
 // Added the event listener for when the submit button is pressed
 button.addEventListener("click", function () {
-   
+
     var inputGlobal = inputText.value;
     dataInput(inputGlobal);
     dataInput2(inputGlobal);
@@ -33,49 +42,49 @@ function createItemFromStorage(value) {
     btn_city.textContent = value;
     resultList.appendChild(btn_city)
     var buttonPress = document.getElementsByClassName("btn-secondary");
-    
+
     buttonPressing(buttonPress);
-    
+
 }
 // Created function when any of the stored city buttons is press it will send the city to the fetch method
 function buttonPressing(buttonPress) {
-    for (let i = 0; i < buttonPress.length; i++){
+    for (let i = 0; i < buttonPress.length; i++) {
         buttonPress[i].addEventListener("click", function (event) {
             dataInput(event.target.textContent)
             dataInput2(event.target.textContent)
         })
     }
- 
+
 }
 
 function validateCity(data) {
-    console.log("test"  + data)
+    console.log("test" + data)
     let city = document.querySelector('#inputCity').value
-        
-if(localStorage.getItem('savedCities')){
-savedCities = JSON.parse(localStorage.getItem('savedCities')) 
-} 
 
-let flag = false;
-for (let i = 0; i < savedCities.length; i++){
-if (savedCities[i] === city) {
-   
-   flag = true;
-   break;
+    if (localStorage.getItem('savedCities')) {
+        savedCities = JSON.parse(localStorage.getItem('savedCities'))
+    }
 
-}
+    let flag = false;
+    for (let i = 0; i < savedCities.length; i++) {
+        if (savedCities[i] === city) {
 
-}
-if (flag === false) {
-savedCities.push(city)
-localStorage.setItem('savedCities', JSON.stringify(savedCities))
-createItemFromStorage(city)
-}
+            flag = true;
+            break;
+
+        }
+
+    }
+    if (flag === false) {
+        savedCities.push(city)
+        localStorage.setItem('savedCities', JSON.stringify(savedCities))
+        createItemFromStorage(city)
+    }
 
     finalValue = data;
     return data;
-   
-}    
+
+}
 
 
 // fetching data to display five day forcast
@@ -95,7 +104,7 @@ function dataInput(input) {
                 console.log("response.status : " + response.status)
             }
             else {
-              return validateCity(data)
+                return validateCity(data)
             }
 
         })
@@ -122,9 +131,9 @@ function dataInput(input) {
                 </div>
                </div>
                </div>`)
-                
-               
- creatElemtn.appendTo(fiveDay)
+
+
+                creatElemtn.appendTo(fiveDay)
 
             }
 
@@ -139,7 +148,7 @@ function dataInput2(input) {
     console.log(input)
     console.log(myKey)
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + input + "&appid=" + myKey)
-      
+
         .then(function (response) {
             return response.json();
         })
@@ -147,31 +156,49 @@ function dataInput2(input) {
             console.log("ytrds")
             console.log(data)
 
+
             return data;
 
         })
         
+
         .then(function (data) {
-            weatherDetail.textContent = "";
-            // for (let i = 0; i < data.length; i++){
-                var pTagName = document.createElement("h1")
-                var pTagTemp = document.createElement("p")
-                var pTagWind = document.createElement("p")
-                var pTagHumidity = document.createElement("p")
-                var pTagUV = document.createElement("p")
-                pTagName.textContent = data.name;
-                pTagTemp.textContent = data.main.temp;
-                pTagWind.textContent = data.wind.speed;
-                pTagHumidity.textContent = data.main.humidity;
-                pTagUV.textContent = data.uvi
-                // pTagName.append(weatherDetail)
-            weatherDetail.appendChild(pTagName)
-            weatherDetail.appendChild(pTagTemp)
-            weatherDetail.appendChild(pTagWind)
-            weatherDetail.appendChild(pTagHumidity)
-            weatherDetail.appendChild(pTagUV)
-            // }
-            return;
+            let lat = data.coord.lat;
+            let lon = data.coord.lon;
+            fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + myKey)
+                .then(function (response) {
+                    return response.json();
+                })
+            
+                .then(function (uvData) {
+                    weatherDetail.textContent = "";
+                   
+
+                    var pTagName = document.createElement("h1")
+                    var pTagTemp = document.createElement("p")
+                    var pTagWind = document.createElement("p")
+                    var pTagHumidity = document.createElement("p")
+                    var pTagUV = document.createElement("p")
+                    pTagName.textContent =  data.name;
+                    pTagTemp.textContent = "Temp : " + data.main.temp;
+                    pTagWind.textContent = "wind : " + data.wind.speed;
+                    pTagHumidity.textContent = "Humidity : " + data.main.humidity;
+                    pTagUV.textContent = "UVI : " + uvData.current.uvi
+                    console.log("sid")
+                    console.log(uvData)
+
+                    // pTagName.append(weatherDetail)
+                    weatherDetail.appendChild(pTagName)
+                    weatherDetail.appendChild(pTagTemp)
+                    weatherDetail.appendChild(pTagWind)
+                    weatherDetail.appendChild(pTagHumidity)
+                    weatherDetail.appendChild(pTagUV)
+                    
+
+                    return;
+                })
+        
         })
 
 }
+
