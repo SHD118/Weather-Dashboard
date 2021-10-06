@@ -33,8 +33,8 @@ button.addEventListener("click", function () {
         alert("Please enter a city name")
         return
     }
-    dataInput(inputGlobal);
-    dataInput2(inputGlobal);
+    fetchingFiveDay(inputGlobal);
+    fetchingCurrentLocation(inputGlobal);
 
 })
 
@@ -58,13 +58,13 @@ function createItemFromStorage(value) {
 function buttonPressing(buttonPress) {
     for (let i = 0; i < buttonPress.length; i++) {
         buttonPress[i].addEventListener("click", function (event) {
-            dataInput(event.target.textContent)
-            dataInput2(event.target.textContent)
+            fetchingFiveDay(event.target.textContent)
+            fetchingCurrentLocation(event.target.textContent)
         })
     }
 
 }
-
+// Validate location is real
 function validateCity(data) {
     let city = document.querySelector('#inputCity').value
     
@@ -97,11 +97,11 @@ function validateCity(data) {
 
 
 // fetching data to display five day forcast
-function dataInput(input) {
+function fetchingFiveDay(input) {
     const myKey = "8d16f28b545852d623de7ad3baf04f51";
 
-    console.log(input)
-    console.log(myKey)
+    // console.log(input)
+    // console.log(myKey)
     fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + input + "&cnt=5" + "&appid=" + myKey)
         // fetch("api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=8d16f28b545852d623de7ad3baf04f51")
         .then(function (response) {
@@ -110,7 +110,7 @@ function dataInput(input) {
         .then(function (data) {
             if (data.cod === "404") {
                 alert("This City doesn't exist")
-                console.log("response.status : " + response.status)
+                // console.log("response.status : " + response.status)
             }
             else {
                 return validateCity(data)
@@ -126,7 +126,7 @@ function dataInput(input) {
                 var temp = data.list[i].main.temp
                 var humid = data.list[i].main.humidity
                 var icon = data.list[i].weather[0].icon
-                console.log("icon " + icon)
+                // console.log("icon " + icon)
                 let tempString = `http://openweathermap.org/img/wn/${icon}.png`
                 var wind = data.list[i].wind.speed;
                 let creatElemtn = $(`<div class="col-2">
@@ -152,20 +152,20 @@ function dataInput(input) {
 
 }
 
-
-function dataInput2(input) {
+// fetching data for currentLocation
+function fetchingCurrentLocation(input) {
     const myKey = "8d16f28b545852d623de7ad3baf04f51";
 
-    console.log(input)
-    console.log(myKey)
-    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + input + "&appid=" + myKey)
+    // console.log(input)
+    // console.log(myKey)
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + input + "&appid=" + myKey + "&units=imperial")
 
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            console.log("ytrds")
-            console.log(data)
+            // console.log("ytrds")
+            // console.log(data)
 
 
             return data;
@@ -176,7 +176,7 @@ function dataInput2(input) {
         .then(function (data) {
             let lat = data.coord.lat;
             let lon = data.coord.lon;
-            fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + myKey)
+            fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + myKey + "&units=imperial")
                 .then(function (response) {
                     return response.json();
                 })
@@ -190,23 +190,42 @@ function dataInput2(input) {
                     var pTagTemp = document.createElement("p")
                     var pTagWind = document.createElement("p")
                     var pTagHumidity = document.createElement("p")
+                    var pTagUVParent = document.createElement("div")
+                    var pTagUVText = document.createElement("p")
                     var pTagUV = document.createElement("p")
-                    pTagUV.classList.add("greenBox")
+                    // pTagUV.classList.add("greenBox")
+                    pTagUVParent.classList.add("pTagUVParent")
+                    pTagUVText.textContent = "UVI : ";
+                    pTagUV.textContent = uvData.current.uvi
+                    if (uvData.current.uvi < .5) {
+                        pTagUV.classList.add("redBox")
+                    }
+                    else if (uvData.current.uvi > .5) {
+                        pTagUV.classList.add("green")
+                    }
+                    else {
+                        pTagUV.classList.add("yellow")
+                        
+                    }
+                  
+
                     pTagName.textContent =  data.name + " " + today;
-                    pTagTemp.textContent = "Temp : " + data.main.temp;
-                    pTagWind.textContent = "wind : " + data.wind.speed;
-                    pTagHumidity.textContent = "Humidity : " + data.main.humidity;
+                    pTagTemp.textContent = "Temp : " + data.main.temp + "°F" 
+                    pTagWind.textContent = "wind : " + data.wind.speed + "MPH";
+                    pTagHumidity.textContent = "Humidity : " + data.main.humidity + "%";
+                    pTagUVParent.appendChild(pTagUVText)
+                    pTagUVParent.appendChild(pTagUV)
                    
-                    pTagUV.textContent = "UVI : " + uvData.current.uvi
+                    // pTagUV.textContent =  "UVI : " + uvData.current.uvi
                     
                     
-                    console.log("sid")
-                    console.log(uvData)
+                    // console.log("sid")
+                    // console.log(uvData)
                     weatherDetail.appendChild(pTagName)
                     weatherDetail.appendChild(pTagTemp)
                     weatherDetail.appendChild(pTagWind)
                     weatherDetail.appendChild(pTagHumidity)
-                    weatherDetail.appendChild(pTagUV)
+                     weatherDetail.appendChild(pTagUVParent)
                     
 
                     return;

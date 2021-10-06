@@ -34,12 +34,30 @@ height: 300px
 .greenBox{
     display: inline-flex;
     background-color: green;
+    margin-left: 1%;
 
 }
+.redBox{
+    display: inline-flex;
+    background-color: red;
+    margin-left: 1%;
+
+}
+.yellowBox{
+    display: inline-flex;
+    background-color: yellow;
+    margin-left: 1%;
+
+}
+
 
 
 #jumbotron_head{
     background-color: #0093E9;
 background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
 font-family: 'Oswald', sans-serif;
+}
+
+.pTagUVParent{
+    display: flex;
 }
