@@ -106,7 +106,7 @@ function NotACity() {
 function fetchingFiveDay(input) {
     const myKey = "8d16f28b545852d623de7ad3baf04f51";
 
-    fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + input + "&cnt=5" + "&appid=" + myKey)
+    fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + input + "&cnt=5" + "&units=imperial" + "&appid=" + myKey)
 
         .then(function (response) {
             return response.json();
@@ -139,10 +139,10 @@ function fetchingFiveDay(input) {
                 background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
                 ">
                     <h5 class="card-title">${dt}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">${temp}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">${temp}°F</h6>
                     <p class="card-text"><img src = "${tempString}"/></p>
-                    <p class="card-text">${humid}</p>
-                    <p class="card-text">${wind}</p>
+                    <p class="card-text">${humid}%</p>
+                    <p class="card-text">${wind}MPH</p>
                 </div>
                </div>
                </div>`)
